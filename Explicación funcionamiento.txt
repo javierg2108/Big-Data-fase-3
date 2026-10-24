@@ -1,0 +1,26 @@
+Proyecto: Procesamiento Batch con PySpark
+Este repositorio contiene el script en Python utilizando la API de PySpark para realizar el procesamiento por lotes (batch) de un conjunto de datos de calidad del aire.
+
+Estructura del Proyecto
+batch_analysis.py: Script principal de PySpark que realiza la ingesta, limpieza, renombrado de columnas, agregaciones (EDA) y exportación de los datos.
+
+resultados_batch_salida/: Carpeta generada por Spark que contiene los archivos CSV con los resultados procesados y el indicador de éxito (_SUCCESS).
+
+ Descripción del Código (batch_analysis.py)
+El script está estructurado en las siguientes fases lógicas:
+
+Inicialización de la Sesión: Se crea una SparkSession bajo el nombre de aplicación "AnalisisBatchCalidadAire".
+
+Carga del Dataset: Lectura del archivo CSV (air_quality_data.csv) activando la inferencia automática de esquemas y la detección de cabeceras.
+
+Limpieza y Transformación:
+
+Se renombra la columna Solar.R a SolarR para evitar conflictos de análisis sintáctico en Spark.
+
+Se eliminan valores nulos o inconsistentes utilizando .dropna().
+
+Agregación de Datos: Se agrupa la información por mes (Month) para calcular métricas clave como el promedio de ozono, el valor máximo y el promedio de temperatura, ordenando los resultados de forma descendente.
+
+Exportación: Se guardan los datos procesados en un directorio de salida en formato CSV.
+
+Pausa de Monitoreo: Se incluye una pausa temporal mediante time.sleep(300) al final del script con el fin de mantener activa la interfaz web de monitoreo (Spark UI) para su respectiva grabación y validación académica.
